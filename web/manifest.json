@@ -1,11 +1,11 @@
 {
-    "name": "playground",
-    "short_name": "playground",
+    "name": "Cervon's Playground",
+    "short_name": "Cervon's Playground",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A playground.",
+    "description": "Welcome to my playground!",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
