@@ -3,11 +3,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  final List<Color> colorList = [];
+  final List<MaterialColor> colorList = [];
 
   WelcomeScreen({Key? key}) : super(key: key) {
     for (final primary in Colors.primaries) {
-      colorList.add(primary.shade700);
+      colorList.add(primary);
     }
   }
 
@@ -16,16 +16,15 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  Color currentColor = Colors.black;
+  MaterialColor currentColor = Colors.blueGrey;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: currentColor,
-        child: const Icon(Icons.palette),
-        onPressed: () {
-          Color newTextColor = currentColor;
+      backgroundColor: currentColor.shade50,
+      body: InkWell(
+        onTap: () {
+          MaterialColor newTextColor = currentColor;
           while (newTextColor == currentColor) {
             newTextColor = widget.colorList.elementAt(
               Random().nextInt(widget.colorList.length),
@@ -35,28 +34,30 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             currentColor = newTextColor;
           });
         },
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SelectableText(
-              'Welcome to the playground!',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline4!.copyWith(
-                    color: currentColor,
-                  ),
-            ),
-            const SizedBox(height: 24.0),
-            SelectableText(
-              'This website is still work in progress, check back soon for fun stuff. :)',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    color: currentColor,
-                  ),
-            ),
-          ],
+        splashColor: Colors.white,
+        highlightColor: Colors.transparent,
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SelectableText(
+                'Welcome to my playground!',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline3!.copyWith(
+                      color: currentColor.shade800,
+                    ),
+              ),
+              const SizedBox(height: 24.0),
+              SelectableText(
+                'There\'s nothing here at all :)',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      color: currentColor.shade800,
+                      fontSize: 16.0,
+                    ),
+              ),
+            ],
+          ),
         ),
       ),
     );
