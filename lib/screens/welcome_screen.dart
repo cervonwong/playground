@@ -36,6 +36,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         },
         splashColor: Colors.white,
         highlightColor: Colors.transparent,
+        focusColor: Colors.transparent,
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -43,8 +44,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               SelectableText(
                 'Welcome to my playground!',
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline3!.copyWith(
+                style: Theme.of(context).textTheme.headline2!.copyWith(
                       color: currentColor.shade800,
+                      fontFamily: 'Fraunces 72pt',
                     ),
               ),
               const SizedBox(height: 24.0),
@@ -53,7 +55,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       color: currentColor.shade800,
-                      fontSize: 16.0,
+                      fontFamily: 'Fraunces 9pt',
+                      fontSize: 18.0,
                     ),
               ),
             ],
