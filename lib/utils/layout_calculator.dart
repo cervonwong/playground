@@ -4,10 +4,7 @@ class LayoutCalculator {
   LayoutCalculator._(); // Prevent instantiation with private constructor.
 
   static LayoutBreakpoint breakpoint({required BuildContext context}) {
-    final screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final screenWidth = MediaQuery.of(context).size.width;
 
     if (screenWidth < 600.0) {
       return LayoutBreakpoint.smallest;
@@ -23,10 +20,7 @@ class LayoutCalculator {
   }
 
   static double margin({required BuildContext context}) {
-    final screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final screenWidth = MediaQuery.of(context).size.width;
 
     switch (breakpoint(context: context)) {
       case LayoutBreakpoint.smallest:
@@ -43,10 +37,7 @@ class LayoutCalculator {
   }
 
   static double wideMargin({required BuildContext context}) {
-    final screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final screenWidth = MediaQuery.of(context).size.width;
 
     switch (breakpoint(context: context)) {
       case LayoutBreakpoint.smallest:
