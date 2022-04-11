@@ -41,7 +41,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SelectableText(
+              Text(
                 'Welcome to my playground!',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline2!.copyWith(
@@ -50,7 +50,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
               ),
               const SizedBox(height: 24.0),
-              SelectableText(
+              Text(
                 'There\'s nothing here at all :)',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
