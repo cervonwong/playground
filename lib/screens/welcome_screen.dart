@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:playground/utils/layout_calculator.dart';
 
 class WelcomeScreen extends StatefulWidget {
   final List<MaterialColor> colorList = [];
@@ -44,10 +45,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               Text(
                 'Welcome to my playground!',
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline2!.copyWith(
-                      color: currentColor.shade800,
-                      fontFamily: 'Fraunces 72pt',
-                    ),
+                style: TextStyle(
+                  color: currentColor.shade800,
+                  fontSize: LayoutCalculator.breakpoint(context: context) ==
+                          LayoutBreakpoint.smallest
+                      ? 36.0
+                      : LayoutCalculator.breakpoint(context: context) ==
+                              LayoutBreakpoint.small
+                          ? 48.0
+                          : 56.0,
+                  fontFamily: 'Fraunces 72pt',
+                ),
               ),
               const SizedBox(height: 24.0),
               Text(
@@ -56,7 +64,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       color: currentColor.shade800,
                       fontFamily: 'Fraunces 9pt',
-                      fontSize: 18.0,
+                      fontSize: LayoutCalculator.breakpoint(context: context) ==
+                              LayoutBreakpoint.smallest
+                          ? 16.0
+                          : 18.0,
                     ),
               ),
             ],
