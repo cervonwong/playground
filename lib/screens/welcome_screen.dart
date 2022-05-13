@@ -17,7 +17,7 @@ const colorList = [
   [Color(0XFFFDF4FF), Color(0XFFC026D3)], // Fuchsia light.
   [Color(0XFFFDF2F8), Color(0XFFDB2777)], // Pink light.
 ];
-const animationDuration = Duration(milliseconds: 150);
+const animationDuration = Duration(milliseconds: 100);
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -43,8 +43,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             onTap: () {
               int newColorIndex = currentColorIndex;
               while (newColorIndex == currentColorIndex) {
-                newColorIndex =
-                  Random().nextInt(colorList.length);
+                newColorIndex = Random().nextInt(colorList.length);
               }
               setState(() {
                 currentColorIndex = newColorIndex;
@@ -59,36 +58,49 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               child: AnimatedDefaultTextStyle(
                 duration: animationDuration,
                 style: TextStyle(color: foregroundColor),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Welcome to my playground!',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: LayoutCalculator.breakpoint(context: context) ==
-                                LayoutBreakpoint.smallest
-                            ? 36.0
-                            : LayoutCalculator.breakpoint(context: context) ==
-                                    LayoutBreakpoint.small
-                                ? 48.0
-                                : 56.0,
-                        fontFamily: 'Fraunces 72pt',
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: LayoutCalculator.breakpoint(context: context) ==
+                            LayoutBreakpoint.smallest
+                        ? 16.0
+                        : LayoutCalculator.breakpoint(context: context) ==
+                                LayoutBreakpoint.small
+                            ? 32.0
+                            : 64.0,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Why be grey when you can slay!',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: LayoutCalculator.breakpoint(
+                                      context: context) ==
+                                  LayoutBreakpoint.smallest
+                              ? 48.0
+                              : LayoutCalculator.breakpoint(context: context) ==
+                                      LayoutBreakpoint.small
+                                  ? 64.0
+                                  : 88.0,
+                          fontFamily: 'Fraunces 72pt',
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 24.0),
-                    Text(
-                      'There\'s nothing here at all :)',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                            fontFamily: 'Fraunces 9pt',
-                            fontSize: LayoutCalculator.breakpoint(context: context) ==
-                                    LayoutBreakpoint.smallest
-                                ? 16.0
-                                : 18.0,
-                          ),
-                    ),
-                  ],
+                      const SizedBox(height: 24.0),
+                      Text(
+                        'Click anywhere to start slaying.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Fraunces 9pt',
+                          fontSize:
+                              LayoutCalculator.breakpoint(context: context) ==
+                                      LayoutBreakpoint.smallest
+                                  ? 18.0
+                                  : 20.0,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
