@@ -17,7 +17,8 @@ const colorList = [
   [Color(0XFFFDF4FF), Color(0XFFC026D3)], // Fuchsia light.
   [Color(0XFFFDF2F8), Color(0XFFDB2777)], // Pink light.
 ];
-const animationDuration = Duration(milliseconds: 100);
+const colorAnimationDuration = Duration(milliseconds: 100);
+const textSwitcherAnimationDuration = Duration(milliseconds: 500);
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -30,12 +31,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   int currentColorIndex = -1;
   Color backgroundColor = const Color(0XFFF3F4F6);
   Color foregroundColor = const Color(0XFF4B5563);
+  int clickCount = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnimatedContainer(
-        duration: animationDuration,
+        duration: colorAnimationDuration,
         color: backgroundColor,
         child: Material(
           type: MaterialType.transparency,
@@ -49,6 +51,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 currentColorIndex = newColorIndex;
                 backgroundColor = colorList[newColorIndex][0];
                 foregroundColor = colorList[newColorIndex][1];
+                clickCount++;
               });
             },
             splashColor: Colors.white,
@@ -56,7 +59,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             focusColor: Colors.transparent,
             child: Center(
               child: AnimatedDefaultTextStyle(
-                duration: animationDuration,
+                duration: colorAnimationDuration,
                 style: TextStyle(color: foregroundColor),
                 child: Padding(
                   padding: EdgeInsets.symmetric(
@@ -72,7 +75,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'Why be grey when you can slay!',
+                        'Why be gray when you can slay!',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: LayoutCalculator.breakpoint(
@@ -87,16 +90,25 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         ),
                       ),
                       const SizedBox(height: 24.0),
-                      Text(
-                        'Click anywhere to start slaying.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'Fraunces 9pt',
-                          fontSize:
-                              LayoutCalculator.breakpoint(context: context) ==
-                                      LayoutBreakpoint.smallest
-                                  ? 18.0
-                                  : 20.0,
+                      AnimatedSwitcher(
+                        duration: textSwitcherAnimationDuration,
+                        transitionBuilder: (Widget child, Animation<double> animation) {
+                          return ScaleTransition(scale: animation, child: child);
+                        },
+                        child: Text(
+                          clickCount == 0
+                              ? 'Click anywhere to start slaying.'
+                              : 'Slay counter: $clickCount',
+                          key: ValueKey<bool>(clickCount == 0),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: 'Fraunces 9pt',
+                            fontSize:
+                                LayoutCalculator.breakpoint(context: context) ==
+                                        LayoutBreakpoint.smallest
+                                    ? 18.0
+                                    : 20.0,
+                          ),
                         ),
                       ),
                     ],
