@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:playground/utils/layout_calculator.dart';
+import '../utils/layout_calculator.dart';
 
 const colorList = [
   [Color(0XFFFEF2F2), Color(0XFFDC2626)], // Red light.
