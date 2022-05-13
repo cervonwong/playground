@@ -26,6 +26,8 @@ flutter:
     - family: Fraunces 72pt
       fonts:
         - asset: assets/fonts/Fraunces72ptSuperSoft-Regular.ttf
+        - asset: assets/fonts/Fraunces72ptSuperSoft-Italic.ttf
+          style: italic
     - family: Fraunces 9pt
       fonts:
         - asset: assets/fonts/Fraunces9ptSuperSoft-Regular.ttf

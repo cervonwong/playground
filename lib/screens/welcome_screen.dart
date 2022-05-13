@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:playground/utils/layout_calculator.dart';
 
@@ -17,7 +18,7 @@ const colorList = [
   [Color(0XFFFDF4FF), Color(0XFFC026D3)], // Fuchsia light.
   [Color(0XFFFDF2F8), Color(0XFFDB2777)], // Pink light.
 ];
-const colorAnimationDuration = Duration(milliseconds: 100);
+const colorAnimationDuration = Duration(milliseconds: 150);
 const textSwitcherAnimationDuration = Duration(milliseconds: 500);
 
 class WelcomeScreen extends StatefulWidget {
@@ -74,43 +75,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        'Why be gray when you can slay!',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: LayoutCalculator.breakpoint(
-                                      context: context) ==
-                                  LayoutBreakpoint.smallest
-                              ? 48.0
-                              : LayoutCalculator.breakpoint(context: context) ==
-                                      LayoutBreakpoint.small
-                                  ? 64.0
-                                  : 88.0,
-                          fontFamily: 'Fraunces 72pt',
-                        ),
-                      ),
+                      const QuoteText(),
                       const SizedBox(height: 24.0),
-                      AnimatedSwitcher(
-                        duration: textSwitcherAnimationDuration,
-                        transitionBuilder: (Widget child, Animation<double> animation) {
-                          return ScaleTransition(scale: animation, child: child);
-                        },
-                        child: Text(
-                          clickCount == 0
-                              ? 'Click anywhere to start slaying.'
-                              : 'Slay counter: $clickCount',
-                          key: ValueKey<bool>(clickCount == 0),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Fraunces 9pt',
-                            fontSize:
-                                LayoutCalculator.breakpoint(context: context) ==
-                                        LayoutBreakpoint.smallest
-                                    ? 18.0
-                                    : 20.0,
-                          ),
-                        ),
-                      ),
+                      AuxiliaryText(clickCount: clickCount),
                     ],
                   ),
                 ),
@@ -119,6 +86,146 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class AuxiliaryText extends StatefulWidget {
+  const AuxiliaryText({
+    Key? key,
+    required this.clickCount,
+  }) : super(key: key);
+
+  final int clickCount;
+
+  @override
+  State<AuxiliaryText> createState() => _AuxiliaryTextState();
+}
+
+class _AuxiliaryTextState extends State<AuxiliaryText>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController animationController;
+  late final Animation<double> scale;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+        duration: const Duration(milliseconds: 110), vsync: this);
+    scale = Tween<double>(begin: 1.0, end: 2.0).animate(
+      CurvedAnimation(
+        parent: animationController,
+        curve: const Interval(
+          0.0,
+          1.0,
+          curve: Curves.easeIn,
+        ),
+      ),
+    );
+    animationController
+        .forward()
+        .whenComplete(() => animationController.reverse());
+  }
+
+  @override
+  void didUpdateWidget(covariant AuxiliaryText oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.clickCount == oldWidget.clickCount) {
+      return;
+    }
+    animationController.reset();
+    animationController
+        .forward()
+        .whenComplete(() => animationController.reverse());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSwitcher(
+      duration: textSwitcherAnimationDuration,
+      transitionBuilder: (Widget child, Animation<double> animation) {
+        return ScaleTransition(scale: animation, child: child);
+      },
+      child: widget.clickCount == 0
+          ? Text(
+              'Click anywhere to start slaying.',
+              textAlign: TextAlign.center,
+              style: DefaultTextStyle.of(context).style.copyWith(
+                    fontFamily: 'Fraunces 9pt',
+                    fontSize: LayoutCalculator.breakpoint(context: context) ==
+                            LayoutBreakpoint.smallest
+                        ? 18.0
+                        : 20.0,
+                  ),
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Slay counter: ',
+                  style: DefaultTextStyle.of(context).style.copyWith(
+                        fontFamily: 'Fraunces 9pt',
+                        fontSize:
+                            LayoutCalculator.breakpoint(context: context) ==
+                                    LayoutBreakpoint.smallest
+                                ? 18.0
+                                : 20.0,
+                      ),
+                ),
+                AnimatedBuilder(
+                  animation: animationController,
+                  builder: (context, _) {
+                    return Transform.scale(
+                      scale: scale.value,
+                      child: Text(
+                        '${widget.clickCount}',
+                        style: DefaultTextStyle.of(context).style.copyWith(
+                              fontFamily: 'Fraunces 9pt',
+                              fontSize: LayoutCalculator.breakpoint(
+                                          context: context) ==
+                                      LayoutBreakpoint.smallest
+                                  ? 18.0
+                                  : 20.0,
+                            ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+    );
+  }
+}
+
+class QuoteText extends StatelessWidget {
+  const QuoteText({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+          text: 'Why be gray when you can slay',
+          style: DefaultTextStyle.of(context).style.copyWith(
+                fontSize: LayoutCalculator.breakpoint(context: context) ==
+                        LayoutBreakpoint.smallest
+                    ? 48.0
+                    : LayoutCalculator.breakpoint(context: context) ==
+                            LayoutBreakpoint.small
+                        ? 64.0
+                        : 88.0,
+                fontFamily: 'Fraunces 72pt',
+              ),
+          children: const [
+            TextSpan(
+              text: '!',
+              style: TextStyle(
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          ]),
+      textAlign: TextAlign.center,
     );
   }
 }
