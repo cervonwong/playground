@@ -5,7 +5,7 @@
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Welcome to my playground!",
+    "description": "Don't click the link, don't enter the playground.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
