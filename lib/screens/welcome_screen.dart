@@ -69,8 +69,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         ? 16.0
                         : LayoutCalculator.breakpoint(context: context) ==
                                 LayoutBreakpoint.small
-                            ? 32.0
-                            : 64.0,
+                            ? 42.0
+                            : 124.0,
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -148,7 +148,7 @@ class _AuxiliaryTextState extends State<AuxiliaryText>
       },
       child: widget.clickCount == 0
           ? Text(
-              'Click anywhere to start slaying.',
+              'I\'m gonna put cool stuff here in the future',
               textAlign: TextAlign.center,
               style: DefaultTextStyle.of(context).style.copyWith(
                     fontFamily: 'Fraunces 9pt',
@@ -162,7 +162,7 @@ class _AuxiliaryTextState extends State<AuxiliaryText>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Slay counter: ',
+                  'Arbitrary points: ',
                   style: DefaultTextStyle.of(context).style.copyWith(
                         fontFamily: 'Fraunces 9pt',
                         fontSize:
@@ -204,28 +204,19 @@ class QuoteText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RichText(
-      text: TextSpan(
-          text: 'Why be gray when you can slay',
-          style: DefaultTextStyle.of(context).style.copyWith(
-                fontSize: LayoutCalculator.breakpoint(context: context) ==
-                        LayoutBreakpoint.smallest
-                    ? 48.0
-                    : LayoutCalculator.breakpoint(context: context) ==
-                            LayoutBreakpoint.small
-                        ? 64.0
-                        : 88.0,
-                fontFamily: 'Fraunces 72pt',
-              ),
-          children: const [
-            TextSpan(
-              text: '!',
-              style: TextStyle(
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-          ]),
+    return Text(
+      'There\'s nothing much going on here for now',
       textAlign: TextAlign.center,
+      style: DefaultTextStyle.of(context).style.copyWith(
+            fontSize: LayoutCalculator.breakpoint(context: context) ==
+                    LayoutBreakpoint.smallest
+                ? 42.0
+                : LayoutCalculator.breakpoint(context: context) ==
+                        LayoutBreakpoint.small
+                    ? 48.0
+                    : 62.0,
+            fontFamily: 'Fraunces 72pt',
+          ),
     );
   }
 }
